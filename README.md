@@ -52,36 +52,35 @@ This type of counter is normally referred to as a Down Counter, (CTD). In a bina
 
 ### PROGRAM 
 ```
-~FOR MULTIPLEXER~
-module mux(I0,I1,I2,I3,S0,S1,Y);
-input I0,I1,I2,I3,S0,S1;
-output Y;
-wire P,Q,R,S,S0c,S1c;
-not(S0c,S0);
-nor(S1c,S1);
-and (P,S0c,S1c,I0);
-and(Q,S0c,S1,I1);
-and(R,S0,S1c,I2);
-and(S,S0,S1,I3);
-or(Y,P,Q,R,S);
+UP COUNTER
+module upcounter(clk,a);
+input clk;
+output reg[3:0]a;
+always@(posedge clk)
+begin
+a[3]=(a[2] & a[1] & a[0]) ^ a[3];
+a[2]=(a[1] & a[0]) ^ a[2];
+a[1]=(a[0] ^ a[1]);
+a[0]=1 ^ a[0];
+end
 endmodule
-~FOR DE-MULTIPLEXER~
-module demux(Y0,Y1,Y2,Y3,S0,S1,I);
-input I,S0,S1;
-output Y0,Y1,Y2,Y3;
-wire S0c,S1c;
-not(S0c,S0);
-nor(S1c,S1);
-and (Y0,I,S0c,S1c);
-and(Y1,I,S0c,S1);
-and(Y2,I,S0,S1c);
-and(Y3,I,S0,S1);
+DOWN COUNTER
+module downcounter(clk,a);
+input clk;
+output reg[3:0]a;
+always@(posedge clk)
+begin
+a[3]=(~a[2] & ~a[1] & ~a[0])^ a[3];
+a[2]=(~a[1] & ~a[0]) ^ a[2];
+a[1]=(~a[0] ^ a[1]);
+a[0]=1 ^ a[0];
+end
 endmodule
 ```
 /*
 Program for flipflops  and verify its truth table in quartus using Verilog programming.
-Developed by: 
-RegisterNumber:  
+Developed by:Stephen.U
+RegisterNumber:212222050058 
 */
 
 
@@ -90,7 +89,9 @@ RegisterNumber:
 
 
 ### RTL LOGIC UP COUNTER AND DOWN COUNTER  
+![image](https://github.com/Stephenula/Exp-7-Synchornous-counters-/assets/130553855/653ffabc-c448-4787-a163-da1eba314beb)
 
+![image](https://github.com/Stephenula/Exp-7-Synchornous-counters-/assets/130553855/dfae4064-d9a3-4b69-887a-e1f45a54ad5c)
 
 
 
@@ -101,7 +102,9 @@ RegisterNumber:
 
 ### TIMING DIGRAMS FOR COUNTER  
 
+![image](https://github.com/Stephenula/Exp-7-Synchornous-counters-/assets/130553855/ba31573b-c5b1-4390-9a53-8af69d33a245)
 
+![image](https://github.com/Stephenula/Exp-7-Synchornous-counters-/assets/130553855/1f4df968-27af-45fd-bfe4-6ea87128a23e)
 
 
 
